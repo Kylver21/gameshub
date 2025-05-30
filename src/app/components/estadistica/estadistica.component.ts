@@ -1,17 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { JuegosDataService } from '../../services/juegos-data.service';
 
 @Component({
   selector: 'app-estadistica',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './estadistica.component.html',
   styleUrl: './estadistica.component.css'
 })
-export class EstadisticaComponent {
+export class EstadisticaComponent implements OnInit {
+  totalJuegos: number = 0;
+  cantidadGratis: number = 0;
+  cantidadPago: number = 0;
+  mejorJuego: { nombre: string, rating: number } | null = null;
+  promedioPrecio: number = 0;
 
+  constructor(private juegosDataService: JuegosDataService) {}
 
+  ngOnInit(): void {
+    this.juegosDataService.getEstadisticas().subscribe(stats => {
+      this.totalJuegos = stats.totalJuegos;
+      this.cantidadGratis = stats.juegosGratis;
+      this.cantidadPago = stats.juegosPago;
+      this.mejorJuego = stats.mejorRating;
+      this.promedioPrecio = stats.promedioPrecio;
+    });
+  }
 }
 
 /*

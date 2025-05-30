@@ -1,1 +1,27 @@
-<p>estadistica works!</p>
+<div class="container py-5">
+  <h2 class="mb-4">Estadísticas de la Plataforma</h2>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <i class="bi bi-controller"></i>
+      Total de juegos en la plataforma: <strong>{{ totalJuegos }}</strong>
+    </li>
+    <li class="list-group-item">
+      <i class="bi bi-gift"></i>
+      Juegos gratuitos: <strong>{{ cantidadGratis }}</strong> &nbsp; | &nbsp;
+      Juegos de pago: <strong>{{ cantidadPago }}</strong>
+    </li>
+    <li class="list-group-item">
+      <i class="bi bi-star-fill"></i>
+      Juego con mejor rating:
+      <span *ngIf="mejorJuego">
+        <strong>{{ mejorJuego.nombre }}</strong> ({{ mejorJuego.rating | number:'1.1-2' }})
+      </span>
+      <span *ngIf="!mejorJuego">No disponible</span>
+    </li>
+    <li class="list-group-item">
+      <i class="bi bi-currency-dollar"></i>
+      Promedio de precios (solo juegos de pago):
+      <strong>{{ promedioPrecio | currency:'USD':'symbol':'1.2-2' }}</strong>
+    </li>
+  </ul>
+</div>

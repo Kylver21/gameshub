@@ -30,3 +30,10 @@ export interface Juego {
   trailer?: string;
   tags: string[];
 }
+export interface Estadisticas {
+  totalJuegos: number;
+  juegosGratis: number;
+  juegosPago: number;
+  mejorRating: { nombre: string; rating: number } | null;
+  promedioPrecio: number;
+}
