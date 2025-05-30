@@ -11,6 +11,6 @@ export const routes: Routes = [
   { path: 'juego/:id', component: DetalleJuegoComponent },
   { path: 'categorias', component: CategoriasComponent },
   { path: 'categoria/:id', component: ListaJuegosComponent },
-  { path: 'estadisticas/:id', component: ListaJuegosComponent }, 
+  { path: 'estadisticas', component: EstadisticaComponent }, 
   { path: '**', redirectTo: '' }
 ];

@@ -31,7 +31,8 @@ export class ListaJuegosComponent implements OnInit {
   terminoBusqueda = '';
   categoriaSeleccionada = '';
   mostrandoResultados = 0;
-  
+  ordenSeleccionada: string = 'nombre-asc';
+
   constructor(
     private juegosService: JuegosDataService,
     private route: ActivatedRoute
@@ -91,6 +92,9 @@ export class ListaJuegosComponent implements OnInit {
           resultado = resultado.filter(juego => juego.rating >= filtros.rating);
         }
         
+        // Ordenamiento
+        resultado = this.ordenarLista(resultado, this.ordenSeleccionada);
+
         this.mostrandoResultados = resultado.length;
         return resultado;
       })
@@ -126,5 +130,29 @@ export class ListaJuegosComponent implements OnInit {
       busqueda: this.terminoBusqueda,
       categoria: this.categoriaSeleccionada
     });
+  }
+
+  ordenarJuegos(): void {
+    // Solo dispara el pipe, ya que la propiedad ordenSeleccionada ya cambió
+    this.filtrosSubject.next({ ...this.filtrosSubject.value });
+  }
+
+  ordenarLista(lista: Juego[], orden: string): Juego[] {
+    switch (orden) {
+      case 'nombre-asc':
+        return [...lista].sort((a, b) => a.nombre.localeCompare(b.nombre));
+      case 'nombre-desc':
+        return [...lista].sort((a, b) => b.nombre.localeCompare(a.nombre));
+      case 'precio-asc':
+        return [...lista].sort((a, b) => a.precio - b.precio);
+      case 'precio-desc':
+        return [...lista].sort((a, b) => b.precio - a.precio);
+      case 'rating-desc':
+        return [...lista].sort((a, b) => b.rating - a.rating);
+      case 'rating-asc':
+        return [...lista].sort((a, b) => a.rating - b.rating);
+      default:
+        return lista;
+    }
   }
 }
