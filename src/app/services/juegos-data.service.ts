@@ -10,6 +10,7 @@ export class JuegosDataService {
   private juegosSubject = new BehaviorSubject<Juego[]>([]);
   public juegos$ = this.juegosSubject.asObservable();
 
+
   constructor(private http: HttpClient) {
     this.cargarJuegos();
   }
@@ -86,4 +87,5 @@ export class JuegosDataService {
       )
     );
   }
+  
 }
